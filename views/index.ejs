@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="" class="form" onsubmit="Vyhledej();return false">
+      <input type="text" id="slovo" />
+      <butto type="submit">save</butto>
+    </form>
+    <div id="ankiForm">
+      <label for="anki_deck">Balíček: </label>
+      <input type="text" name="anki_deck" />
+    </div>
+    <div class="seznamSlovnik"></div>
+    <iframe
+      src="https://dictionary.cambridge.org/dictionary/english/hello"
+      width="900px"
+      height="700px"
+      frameborder="0"
+      id="cambridge"
+    ></iframe>
+
+    <!-- <iframe
+      src="./iframe.php?url=https://slovnik.seznam.cz/preklad/anglicky_cesky/hi"
+      id="seznam"
+      width="400px"
+      height="500px"
+      frameborder="0"
+    ></iframe> -->
+
+    <script defer src="js/script.js"></script>
+  </body>
+</html>
