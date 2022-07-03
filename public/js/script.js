@@ -1,15 +1,13 @@
-const cambridge = document.getElementById("cambridge");
-let slovo = document.getElementById("slovo");
-
 // FETCH function
-async function postData(url, method, data) {
+async function postData(url, method, data, mode) {
   try {
     const response = await fetch(url, {
       method: method, // "POST"
       headers: {
         "Content-Type": "application/json",
       },
-      referrerPolicy: "no-referrer",
+      mode: mode || "cors",
+      // referrerPolicy: "no-referrer",
       body: JSON.stringify(data), // body data type must match "Content-Type" header
     });
     return response.json(); // parses JSON response into native JavaScript objects
@@ -19,52 +17,105 @@ async function postData(url, method, data) {
 }
 
 async function Vyhledej() {
-  //   e.preventDefault();
-  console.log("ahoj");
-  slovo = slovo.value;
+  let slovo1 = document.getElementById("slovo");
+
+  const cambridge = document.getElementById("cambridge");
+  const slovo = slovo1.value;
   console.log(slovo);
   cambridge.setAttribute(
     "src",
     `https://dictionary.cambridge.org/dictionary/english/${slovo}`
   );
-  //   seznam.setAttribute(
-  //     "src",
-  //     `https://slovnik.seznam.cz/preklad/anglicky_cesky/${slovo.value}`
-  //   );
 
+  // FETCH TO SEZNAM
   let fetchToSeznam = await postData("/slovnikSeznam", "POST", {
     slovo: slovo,
   });
+
   console.log(fetchToSeznam.htmlSeznamSlovnik);
   const seznamDiv = document.querySelector(".seznamSlovnik");
   seznamDiv.innerHTML = fetchToSeznam.htmlSeznamSlovnik;
-  // let fetchToSeznam = async (e) => {
-  //   try {
-  //     let res = await fetch("/slovnikSeznam", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         slovo: slovo,
-  //       }),
-  //     });
-
-  //     if (res.status === 200) {
-  //       let resJson = await res.json();
-  //       console.log(resJson.htmlSeznamSlovnik);
-  //       const seznamDiv = document.querySelector(".seznamSlovnik");
-  //       seznamDiv.innerHTML = resJson.htmlSeznamSlovnik;
-  //     } else {
-  //       console.log("error when fetching");
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  // fetchToSeznam();
+  let Front = document.getElementById("front_anki");
+  Front.value = slovo;
 
   return false;
 }
 
+async function SaveToAnki() {
+  const action = "addNote";
+  const version = 6;
+  let deckName = document.getElementById("deck_anki").value;
+  let modelName = document.getElementById("cardType_anki").value;
+  let Back = document.getElementById("back_anki").value;
+  let tags_string = document.getElementById("tags_anki").value;
+  const tags = tags_string.split(" ");
+  console.log(tags);
+  const Front = document.getElementById("front_anki").value;
+  console.log({
+    action,
+    version,
+    params: {
+      note: {
+        deckName,
+        modelName,
+        fields: {
+          Front,
+          Back,
+        },
+        tags: ["slovniky"],
+      },
+    },
+  });
+  // FETCH TO ANKI
+
+  let fetchToAnki = await postData(
+    "http://127.0.0.1:8765",
+    "POST",
+    // {
+    //   action: "addNote",
+    //   version: 6,
+    //   params: {
+    //     note: {
+    //       deckName: "COMPUTER_SCIENCE",
+    //       modelName: "Basic",
+    //       fields: {
+    //         Front: "ftent",
+    //         Back: "btent",
+    //       },
+    //       tags: ["slovniky"],
+    //     },
+    //   },
+    // }
+    {
+      action,
+      version,
+      params: {
+        note: {
+          deckName,
+          modelName,
+          fields: {
+            Front,
+            Back,
+          },
+          tags,
+        },
+      },
+    }
+  );
+  // Back = "";
+  document.getElementById("back_anki").value = "";
+  document.getElementById("front_anki").value = "";
+  console.log(fetchToAnki.error);
+  return false;
+}
+
+// async function requestPermissionAnki() {
+//   const permissionAnki = await postData("http://localhost:8765/", "POST", {
+//     action: "requestPermission",
+//     version: 6,
+//   });
+//   console.log(permissionAnki);
+// }
 // console.log(Vyhledej());
 
 // NO WHITE SCREEN

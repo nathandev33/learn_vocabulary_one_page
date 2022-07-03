@@ -101,13 +101,6 @@ async function getSlovnik(slovo) {
       .Box-content-pointer {
         display: none;
       }
-      .d:before,
-.Box-content .y:before {
-  content: "(";
- }
- .d:after {
-    content: ")";
-}
       [lang="en"]::before {
     content: "\\00a0 ";}
     </style>
@@ -125,6 +118,7 @@ async function getSlovnik(slovo) {
 
   console.log("ahojky");
   const htmlSeznamSlovnik = fs.readFileSync("./slovnik.html", "utf8");
+
   return htmlSeznamSlovnik;
 }
 
