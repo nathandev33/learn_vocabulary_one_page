@@ -1,6 +1,9 @@
 {
   "name": "zkusebni-node",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.17.5"
+  },
   "description": "",
   "main": "app.js",
   "scripts": {
@@ -20,6 +23,7 @@
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^6.4.0",
     "helmet": "^5.1.0",
+    "install": "^0.13.0",
     "node-fetch": "^3.2.6",
     "xss-clean": "^0.1.1"
   }
