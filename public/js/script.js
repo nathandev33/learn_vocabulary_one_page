@@ -1,20 +1,16 @@
 // FETCH function
-// window.onload = function () {
-//   console.log("loadnutí");
-//   document.getElementById("slovo").focus();
-// };
 async function postData(url, method, data, mode) {
   try {
     const response = await fetch(url, {
-      method: method, // "POST"
+      method: method,
       headers: {
         "Content-Type": "application/json",
       },
       mode: mode || "cors",
-      // referrerPolicy: "no-referrer",
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
     });
-    return response.json(); // parses JSON response into native JavaScript objects
+    return response.json();
   } catch (error) {
     console.log(error);
   }
@@ -22,7 +18,6 @@ async function postData(url, method, data, mode) {
 
 async function Vyhledej() {
   let slovo1 = document.getElementById("slovo");
-
   const cambridge = document.getElementById("cambridge");
   const slovo = slovo1.value;
   console.log(slovo);
@@ -30,24 +25,15 @@ async function Vyhledej() {
     "src",
     `https://dictionary.cambridge.org/dictionary/english/${slovo}`
   );
-  cambridge.onload = function () {
-    // cambridge.contentWindow.document.
-    var innerDoc =
-      cambridge.contentDocument || cambridge.contentWindow.document;
-    console.log(innerDoc.body);
-  };
-
   // FETCH TO SEZNAM
   let fetchToSeznam = await postData("/slovnikSeznam", "POST", {
     slovo: slovo,
   });
-
-  console.log(fetchToSeznam.htmlSeznamSlovnik);
+  // console.log(fetchToSeznam.htmlSeznamSlovnik);
   const seznamDiv = document.querySelector(".seznamSlovnik");
   seznamDiv.innerHTML = fetchToSeznam.htmlSeznamSlovnik;
   let Front = document.getElementById("front_anki");
   Front.value = slovo;
-
   return false;
 }
 
@@ -59,9 +45,9 @@ async function SaveToAnki() {
   let Back = document.getElementById("back_anki").value;
   let tags_string = document.getElementById("tags_anki").value;
   const tags = tags_string.split(" ");
-  console.log(tags);
   const Front = document.getElementById("front_anki").value;
-  console.log({
+  // FETCH TO ANKI
+  let fetchToAnki = await postData("http://127.0.0.1:8765", "POST", {
     action,
     version,
     params: {
@@ -72,51 +58,14 @@ async function SaveToAnki() {
           Front,
           Back,
         },
-        tags: ["slovniky"],
+        tags,
       },
     },
   });
-  // FETCH TO ANKI
-
-  let fetchToAnki = await postData(
-    "http://127.0.0.1:8765",
-    "POST",
-    // {
-    //   action: "addNote",
-    //   version: 6,
-    //   params: {
-    //     note: {
-    //       deckName: "COMPUTER_SCIENCE",
-    //       modelName: "Basic",
-    //       fields: {
-    //         Front: "ftent",
-    //         Back: "btent",
-    //       },
-    //       tags: ["slovniky"],
-    //     },
-    //   },
-    // }
-    {
-      action,
-      version,
-      params: {
-        note: {
-          deckName,
-          modelName,
-          fields: {
-            Front,
-            Back,
-          },
-          tags,
-        },
-      },
-    }
-  );
-  // Back = "";
   document.getElementById("back_anki").value = "";
   document.getElementById("front_anki").value = "";
   document.getElementById("slovo").focus();
-  console.log(fetchToAnki.error);
+  // console.log(fetchToAnki.error);
   return false;
 }
 
@@ -127,9 +76,8 @@ async function SaveToAnki() {
 //   });
 //   console.log(permissionAnki);
 // }
-// console.log(Vyhledej());
 
-// NO WHITE SCREEN
+// NO WHITE SCREEN when rendering iframe
 // Prevent variables from being global
 (function () {
   /*
@@ -155,19 +103,3 @@ async function SaveToAnki() {
     document.getElementById("slovo").focus();
   };
 })();
-
-setTimeout(() => {
-  const iframe = document.getElementById("cambridge");
-  const iWindow = iframe.contentWindow;
-  console.log(iWindow);
-  const iDocument = iWindow.document;
-  console.log(iDocument);
-
-  // accessing the element
-  const element = iDocument.getElementsByTagName("p")[0];
-  console.log(element);
-  var innerDoc = cambridge.contentDocument;
-  const inner2 = cambridge.contentWindow.document;
-  console.log(innerDoc.body);
-  console.log(inner2.body);
-}, 6000);
