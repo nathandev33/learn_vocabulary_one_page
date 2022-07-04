@@ -18,17 +18,17 @@ import getSlovnik from "./controllers/fetchSeznam.js";
 
 // MIDDLEWARES
 
-app.use(helmet());
+// app.use(helmet());
 app.use(compression());
 app.use(mongoSanitize());
-app.use(xss());
+// app.use(xss());
 const limiter = rateLimit({
   max: 300,
   windowMs: 60 * 60 * 1000,
   message: "too many request from this ip please try again in an hour",
 });
 // app.use("/api", limiter);
-app.use(cors());
+// app.use(cors());
 
 app.use(express.json());
 app.use(express.static("public"));
