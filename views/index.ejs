@@ -8,54 +8,70 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="bar">
-      <input class="searchbar" type="text" title="Search" />
-      <a href="#">
-        <img
-          class="voice"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Google_mic.svg/716px-Google_mic.svg.png"
-          title="Search by Voice"
-      /></a>
+    <div class="flex-wrapper">
+      <div class="left">
+        <iframe
+          src="https://dictionary.cambridge.org/dictionary/english/hello"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          id="cambridge"
+          style="background-color: lightgray"
+        ></iframe>
+      </div>
+      <div class="center">
+        <form action="" class="form bar" onsubmit="Vyhledej();return false">
+          <input type="text" id="slovo" class="searchbar" />
+          <button type="submit" class="search_button">
+            <img
+              class="voice"
+              src="img/search_icon.svg"
+              title="Search by Voice"
+            />
+          </button>
+        </form>
+        <div class="seznamSlovnik"></div>
+      </div>
+      <div class="right">
+        <form id="ankiForm" onsubmit="SaveToAnki();return false">
+          <div class="row">
+            <label for="deck_anki">Balíček: </label>
+            <input type="text" id="deck_anki" />
+          </div>
+          <div class="row">
+            <label for="cardType_anki">Typ karty:</label>
+            <select id="cardType_anki">
+              <option value="Basic">Basic</option>
+              <option value="Basic (and reversed card)">
+                Basic (and reversed card)
+              </option>
+              <option value="Basic (and reversed card)">
+                Základní (plus obrácena karta)
+              </option>
+            </select>
+          </div>
+          <div class="row">
+            <label for="front_anki">Front: </label>
+            <input type="text" id="front_anki" />
+          </div>
+
+          <div class="row">
+            <label for="back_anki">Back: </label>
+            <textarea rows="5" cols="30" id="back_anki"></textarea>
+          </div>
+
+          <div class="row">
+            <label for="tags_anki">Tagy: </label>
+            <input type="text" id="tags_anki" />
+          </div>
+          <button type="submit" class="button-18">uložit do anki</button>
+        </form>
+      </div>
     </div>
-    <!-- <form class="form" onsubmit="Vyhledej();return false">
-      <input type="text" id="slovo" />
-      <butto type="submit">save</butto>
-    </form> -->
-    <form action="" class="form" onsubmit="Vyhledej();return false">
-      <input type="text" id="slovo" />
-      <button type="submit">save</button>
-    </form>
     <!-- ALLOW IN ANKI -->
     <!-- <button onclick="requestPermissionAnki()">povolit anki</button> -->
     <!-- ANKI FORM -->
-    <form id="ankiForm" onsubmit="SaveToAnki();return false">
-      <label for="deck_anki">Balíček: </label>
-      <input type="text" id="deck_anki" />
-
-      <label for="cardType_anki">Typ karty:</label>
-      <select id="cardType_anki">
-        <option value="Basic">Basic</option>
-        <option value="BasicAndReversed">Basic (and reversed card)</option>
-      </select>
-      <label for="front_anki">Front: </label>
-      <input type="text" id="front_anki" />
-
-      <label for="back_anki">Back: </label>
-      <input type="text" id="back_anki" />
-
-      <label for="tags_anki">Tagy: </label>
-      <input type="text" id="tags_anki" />
-      <button type="submit">uložit do anki</button>
-    </form>
     <!-- SEZNAM IFRAME -->
-    <div class="seznamSlovnik"></div>
-    <iframe
-      src="https://dictionary.cambridge.org/dictionary/english/hello"
-      width="900px"
-      height="700px"
-      frameborder="0"
-      id="cambridge"
-    ></iframe>
 
     <!-- <iframe
       src="./iframe.php?url=https://slovnik.seznam.cz/preklad/anglicky_cesky/hi"

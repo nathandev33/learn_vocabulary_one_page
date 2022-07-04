@@ -1,4 +1,8 @@
 // FETCH function
+// window.onload = function () {
+//   console.log("loadnutí");
+//   document.getElementById("slovo").focus();
+// };
 async function postData(url, method, data, mode) {
   try {
     const response = await fetch(url, {
@@ -26,6 +30,12 @@ async function Vyhledej() {
     "src",
     `https://dictionary.cambridge.org/dictionary/english/${slovo}`
   );
+  cambridge.onload = function () {
+    // cambridge.contentWindow.document.
+    var innerDoc =
+      cambridge.contentDocument || cambridge.contentWindow.document;
+    console.log(innerDoc.body);
+  };
 
   // FETCH TO SEZNAM
   let fetchToSeznam = await postData("/slovnikSeznam", "POST", {
@@ -105,6 +115,7 @@ async function SaveToAnki() {
   // Back = "";
   document.getElementById("back_anki").value = "";
   document.getElementById("front_anki").value = "";
+  document.getElementById("slovo").focus();
   console.log(fetchToAnki.error);
   return false;
 }
@@ -123,7 +134,7 @@ async function SaveToAnki() {
 (function () {
   /*
           1. Inject CSS which makes iframe invisible
-      */
+          */
 
   var div = document.createElement("div"),
     ref =
@@ -136,10 +147,27 @@ async function SaveToAnki() {
 
   /*
         2. When window loads, remove that CSS, 
-           making iframe visible again
-    */
+        making iframe visible again
+        */
 
   window.onload = function () {
     div.parentNode.removeChild(div);
+    document.getElementById("slovo").focus();
   };
 })();
+
+setTimeout(() => {
+  const iframe = document.getElementById("cambridge");
+  const iWindow = iframe.contentWindow;
+  console.log(iWindow);
+  const iDocument = iWindow.document;
+  console.log(iDocument);
+
+  // accessing the element
+  const element = iDocument.getElementsByTagName("p")[0];
+  console.log(element);
+  var innerDoc = cambridge.contentDocument;
+  const inner2 = cambridge.contentWindow.document;
+  console.log(innerDoc.body);
+  console.log(inner2.body);
+}, 6000);
