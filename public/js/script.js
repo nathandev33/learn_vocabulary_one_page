@@ -1,4 +1,4 @@
-// FETCH function
+// FETCH function global
 async function postData(url, method, data, mode) {
   try {
     const response = await fetch(url, {
