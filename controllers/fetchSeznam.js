@@ -69,6 +69,22 @@ span [lang="en"]::before {
     border-radius: 8px;
     text-align: center;
 }
+.Box-header-title-form {
+    margin-left: .5rem;
+    font-style: italic;
+    color: #eee;
+    font-size:12px;
+}
+.note, .y {
+    color: gray;
+}
+.y, .v, .w{
+    font-style: italic;
+        color: gray;
+}
+.Box-content .y:after {
+    content: ") ";
+}
 
     </style>
     <ul>` +
