@@ -40,8 +40,7 @@ export default async function getSlovnik(slovo) {
  .d:after {
     content: ")";
 }
-[lang="cs"]:not:(a)::before {
-    content: "\\00a0 ";}
+
 
    span.note::before {
     content: " -> ";
@@ -53,9 +52,8 @@ span [lang="en"]::before {
     content: " ";
     display: block;
 }
-      [lang="en"]::before {
-    content: "\\00a0 ";}
-
+   
+[lang="cs"]:not:(a)::before {content: "\\00a0 ";}
     .Box-header-button{
       display: none;}
       ol{
