@@ -25,11 +25,11 @@ body a {
 
 .center,
 .right {
-  width: 33%;
+  width: 27.5%;
 }
 .left {
-  width: 33%;
-  height: 500px;
+  width: 45%;
+  height: 700px;
 }
 .flex-wrapper {
   display: flex;
@@ -166,7 +166,7 @@ select {
 .left,
 .center,
 .right {
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .Box-content-pointer::before {
