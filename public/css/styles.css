@@ -1,9 +1,9 @@
 body {
   background: rgba(137, 221, 92, 0.3);
-  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto,
-    "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell,
-    "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, system-ui, system-ui, 'Segoe UI', Roboto,
+    'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell,
+    'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Lucida Grande', Helvetica, Arial, sans-serif;
   background-color: rgb(236, 226, 226);
 
   height: 100vh;
@@ -120,10 +120,10 @@ select {
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
-  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto,
-    "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell,
-    "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, system-ui, system-ui, 'Segoe UI', Roboto,
+    'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell,
+    'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Lucida Grande', Helvetica, Arial, sans-serif;
   font-size: 1.2rem;
   font-weight: 600;
   justify-content: center;
@@ -170,6 +170,32 @@ select {
 }
 
 .Box-content-pointer::before {
-  content: " -> ";
+  content: ' -> ';
   color: green;
+}
+#cambridge {
+  /* -webkit-transform: scale(0.5);
+  zoom: 0.75;
+  -moz-transform: scale(0.75);
+  -moz-transform-origin: 0 0;
+  -o-transform: scale(0.75);
+  -o-transform-origin: 0 0;
+  -webkit-transform: scale(0.75);
+  -webkit-transform-origin: 0 0; */
+}
+.anki-check-icon,
+.anki-error2-icon {
+  /* height: 1rem;
+  width: 1rem; */
+  display: none;
+  padding: 5px;
+}
+
+.anki-check-icon {
+  filter: invert(50%) sepia(400%) saturate(900%) hue-rotate(86deg)
+    brightness(118%) contrast(3000%);
+}
+
+.anki-error-message {
+  color: red;
 }

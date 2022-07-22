@@ -1,4 +1,6 @@
 // FETCH function global
+const postDataError = 'Něco se pokazilo. Ujistěte se, že program Anki běží.'
+
 async function postData(url, method, data, mode) {
   try {
     const response = await fetch(url, {
@@ -12,7 +14,7 @@ async function postData(url, method, data, mode) {
     })
     return response.json()
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
@@ -34,10 +36,12 @@ async function Vyhledej() {
   seznamDiv.innerHTML = fetchToSeznam.htmlSeznamSlovnik
   let Front = document.getElementById('front_anki')
   Front.value = slovo
+  slovo1.value = '' // clear input
   return false
 }
 
 async function SaveToAnki() {
+  document.querySelector('.anki-error-message').textContent = ''
   const action = 'addNote'
   const version = 6
   let deckName = document.getElementById('deck_anki').value
@@ -47,25 +51,57 @@ async function SaveToAnki() {
   const tags = tags_string.split(' ')
   const Front = document.getElementById('front_anki').value
   // FETCH TO ANKI
-  let fetchToAnki = await postData('http://127.0.0.1:8765', 'POST', {
-    action,
-    version,
-    params: {
-      note: {
-        deckName,
-        modelName,
-        fields: {
-          Front,
-          Back,
+  let fetchToAnki
+  try {
+    fetchToAnki = await postData('http://127.0.0.1:8765', 'POST', {
+      action,
+      version,
+      params: {
+        note: {
+          deckName,
+          modelName,
+          fields: {
+            Front,
+            Back,
+          },
+          tags,
         },
-        tags,
       },
-    },
-  })
-  document.getElementById('back_anki').value = ''
-  document.getElementById('front_anki').value = ''
-  document.getElementById('slovo').focus()
-  // console.log(fetchToAnki.error);
+    })
+  } catch (error) {
+    console.log(error)
+  }
+
+  if (!fetchToAnki) {
+    document.querySelector('.anki-error-message').textContent =
+      'Něco se pokazilo. Ujistěte se, že program Anki běží.'
+  } else if (fetchToAnki.error === null) {
+    console.log('no error')
+    document.getElementById('back_anki').value = ''
+    document.getElementById('front_anki').value = ''
+    document.getElementById('slovo').focus()
+    const icon = document.querySelector('.anki-check-icon')
+    icon.style.display = 'inline'
+    icon.style.width = '1rem'
+    icon.style.height = '1rem'
+    setTimeout(() => {
+      icon.style.display = 'none'
+    }, 3000)
+  } else if (fetchToAnki.error !== null) {
+    console.log('is error')
+
+    const icon = document.querySelector('.anki-error2-icon')
+    icon.style.display = 'inline'
+    icon.style.width = '1rem'
+    icon.style.height = '1rem'
+    setTimeout(() => {
+      icon.style.display = 'none'
+    }, 2000)
+
+    const errorMessage = document.querySelector('.anki-error-message')
+    errorMessage.textContent = `${fetchToAnki.error}`
+  }
+  // console.log(fetchToAnki.error)
   return false
 }
 

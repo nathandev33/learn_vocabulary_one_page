@@ -6,7 +6,8 @@ export default async function getSlovnik(slovo) {
   const writeStream = fs.createWriteStream('slovnik.html')
   const url = `https://slovnik.seznam.cz/preklad/anglicky_cesky/${slovo}`
 
-  const response = await fetch(url)
+  const response = await fetch(url, { referrerPolicy: 'no-referrer' })
+  console.log(response)
   const body = await response.text()
 
   let $ = load(body)

@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="noreferrer" />
+
     <link rel="stylesheet" href="css/styles.css" />
 
     <!-- favicon -->
@@ -15,8 +17,8 @@
     />
 
     <title>
-      Dictionari - Anki, Cambridge a Seznam slovník v jednom okně, na jedno
-      kliknutí
+      Dictionari - Anki, Merriam Webster a Seznam slovník v jednom okně, na
+      jedno kliknutí
     </title>
   </head>
   <body>
@@ -32,6 +34,7 @@
           id="cambridge"
           title="Cambridge dictionary"
           style="background-color: lightgray"
+          referrerpolicy="no-referrer"
         >
           <p>Váš prohlížeč nepodporuje iframes.</p>
         </iframe>
@@ -81,7 +84,14 @@
             <label for="tags_anki">Tagy: </label>
             <input type="text" id="tags_anki" />
           </div>
-          <button type="submit" class="button-18">uložit do anki</button>
+          <button type="submit" class="button-18">
+            uložit do anki
+            <span id="ankiResult"
+              ><img src="img/check-icon.svg" alt="" class="anki-check-icon" />
+              <img src="img/error2-icon.svg" alt="" class="anki-error2-icon" />
+            </span>
+          </button>
+          <p class="anki-error-message"></p>
           <!-- ALLOW IN ANKI -->
           <!-- <button onclick="requestPermissionAnki()" class="button-18">
             povolit anki
